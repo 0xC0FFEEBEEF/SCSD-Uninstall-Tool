@@ -1,10 +1,11 @@
 # SCSD Uninstall Tool
 
-This repository contains a batch script (`remove_connect_schoolmanager.bat`) designed to automate the uninstallation of Connect & SchoolManager from Windows systems.
+This repository contains scripts (`remove_connect_schoolmanager.bat` and `remove_connect_schoolmanager.ps1`) designed to automate the uninstallation of Connect, School Manager (including Authentication Agent), and FamilyZone MobileZoneAgent from Windows systems.
 
 ## Features
-- Removes Connect SchoolManager and related files
-- Simple, one-click batch execution
+- Removes Connect, School Manager (including Authentication Agent), and FamilyZone MobileZoneAgent
+- PowerShell script includes error handling for missing programs
+- Simple, one-click batch or PowerShell execution
 - No additional dependencies required
 
 ## Prerequisites
@@ -16,8 +17,9 @@ This repository contains a batch script (`remove_connect_schoolmanager.bat`) des
 	```sh
 	git clone https://github.com/0xC0FFEEBEEF/SCSD-Uninstall-Tool.git
 	```
-2. Right-click `remove_connect_schoolmanager.bat` and select **Run as administrator**.
-3. Follow any on-screen prompts to complete the uninstallation.
+2. For batch script: Right-click `remove_connect_schoolmanager.bat` and select **Run as administrator**.
+3. For PowerShell script: Right-click `remove_connect_schoolmanager.ps1` and select **Run with PowerShell as administrator**.
+4. The script will attempt to uninstall the listed programs. If a program is not found, it will continue without error.
 
 ## Disclaimer
 Use this tool at your own risk. Ensure you have backups of any important data before running the script.
