@@ -1,9 +1,12 @@
 # SCSD Uninstall Tool
 
-This repository contains scripts (`remove_connect_schoolmanager.bat` and `remove_connect_schoolmanager.ps1`) designed to automate the uninstallation of Connect, School Manager (including Authentication Agent), and FamilyZone MobileZoneAgent from Windows systems.
+This repository contains PowerShell scripts (`remove_connect.ps1` and `remove_schoolmanager.ps1`) designed to automate the uninstallation of FamilyZone MobileZoneAgent and School Manager (Authentication Agent) from Windows systems.
 
-## Features
-- Removes Connect, School Manager (including Authentication Agent), and FamilyZone MobileZoneAgent
+-## Features
+- Removes FamilyZone MobileZoneAgent (`remove_connect.ps1`)
+- Removes School Manager - Authentication Agent (`remove_schoolmanager.ps1`)
+- PowerShell scripts can be run independently
+- No additional dependencies required
 - PowerShell script includes error handling for missing programs
 - Simple, one-click batch or PowerShell execution
 - No additional dependencies required
@@ -17,9 +20,30 @@ This repository contains scripts (`remove_connect_schoolmanager.bat` and `remove
 	```sh
 	git clone https://github.com/0xC0FFEEBEEF/SCSD-Uninstall-Tool.git
 	```
-2. For batch script: Right-click `remove_connect_schoolmanager.bat` and select **Run as administrator**.
-3. For PowerShell script: Right-click `remove_connect_schoolmanager.ps1` and select **Run with PowerShell as administrator**.
-4. The script will attempt to uninstall the listed programs. If a program is not found, it will continue without error.
+2. For FamilyZone MobileZoneAgent: Right-click `remove_connect.ps1` and select **Run with PowerShell as administrator**.
+3. For School Manager - Authentication Agent: Right-click `remove_schoolmanager.ps1` and select **Run with PowerShell as administrator**.
+4. Each script will attempt to uninstall its respective program. If a program or uninstaller is not found, it will continue without error.
+
+### Example PowerShell Script Logic
+
+```powershell
+try {
+	Get-WmiObject -Class Win32_Product -Filter "Name = 'School Manager - Authentication Agent'" | ForEach-Object { $_.Uninstall() }
+} catch {
+	Write-Host "School Manager - Authentication Agent uninstall failed or not found. Continuing..."
+}
+
+$uninstaller = "C:\\Program Files (x86)\\FamilyZone\\MobileZoneAgent\\uninstall.exe"
+if (Test-Path $uninstaller) {
+	try {
+		Start-Process -FilePath $uninstaller -ArgumentList "--mode unattended" -Wait
+	} catch {
+		Write-Host "MobileZoneAgent uninstall failed. Continuing..."
+	}
+} else {
+	Write-Host "MobileZoneAgent uninstaller not found. Continuing..."
+}
+```
 
 ## Disclaimer
 Use this tool at your own risk. Ensure you have backups of any important data before running the script.
